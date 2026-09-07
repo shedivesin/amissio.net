@@ -1,0 +1,231 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>Amissio: Heliacal Rising and Setting of the Planets</title>
+<style>
+body{margin:4rem;max-width:36rem}
+.s{margin-top:4rem}
+table{margin:2rem auto}
+th,tr{font-variant-numeric:tabular-nums;text-align:center}
+</style>
+<h1>Heliacal Rising and Setting of the Planets</h1>
+
+<p>While considering the myth of <i>Isis and Osiris</i>, I had the idea that <a href=isis_osiris_horos.html#143590>each of the gods in the myth are representative of some one or the other of the planets</a>, as viewed from Earth at sunrise or sunset. But since I wanted to be sure of that, and since I am a parent of young children and rarely have the energy to stargaze, I wrote a computer program to simulate viewing those planets over time.
+
+<p>This page will display the heliacal rising and setting of the planets, starting from 1800 and proceeding through 2050, after which it will repeat. The left column represents the view to the east just before sunrise, and the right column represents the view to the west just after sunset; the bottom of each view is the horizon, while the top is roughly 60° above it. The small blue circle bouncing up and down is Mercury, the big yellow circle is Venus, the red circle is Mars, the small yellow circle is Jupiter, and the small blue circle that always moves in a single direction is Saturn.
+
+<table>
+<tr><th>Heliacal Rising<th>Heliacal Setting
+<tr><td><canvas width=128 height=384></canvas><td><canvas width=128 height=384></canvas>
+<tr><td colspan=2 id=date>
+</table>
+
+<p class=s>Version 1 (21 Aug 2024).
+<br>All content on <a href=/>amissio.net</a> is dedicated into <a href=https://creativecommons.org/publicdomain/zero/1.0/>the public domain</a>.
+
+<script>
+// Convert Keplerian orbital elements to Cartesian coordinates.
+// https://ssd.jpl.nasa.gov/planets/approx_pos.html
+function kepler(a, e, I, L, ϖ, Ω) {
+  // Compute the argument of perihelion and the mean anomaly.
+  const ω = ϖ - Ω;
+  const M = L - ϖ;
+
+  // Solve Kepler's equation.
+  let E = M + e * Math.sin(M);
+  for(;;) {
+    const dM = M - (E - e * Math.sin(E));
+    const dE = dM / (1 - e * Math.cos(E));
+    E += dE;
+
+    // NB: 2e-8 radians is ~1e-6 degrees.
+    if(Math.abs(dE) <= 2e-8) {
+      break;
+    }
+  }
+
+  // Compute coordinates in orbital plane.
+  const x = a * (Math.cos(E) - e);
+  const y = a * Math.sqrt(1 - e * e) * Math.sin(E);
+
+  // Convert to (and return) coordinates in ecliptic plane.
+  // NB: We throw away the Z component since we only care about longitude.
+  const sin_I = Math.sin(I);
+  const cos_I = Math.cos(I);
+  const sin_Ω = Math.sin(Ω);
+  const cos_Ω = Math.cos(Ω);
+  const sin_ω = Math.sin(ω);
+  const cos_ω = Math.cos(ω);
+  return [
+    x * (cos_ω * cos_Ω - sin_ω * sin_Ω * cos_I) - y * (sin_ω * cos_Ω + cos_ω * sin_Ω * cos_I),
+    x * (cos_ω * sin_Ω + sin_ω * cos_Ω * cos_I) - y * (sin_ω * sin_Ω - cos_ω * cos_Ω * cos_I),
+    x * sin_ω * sin_I + y * cos_ω * sin_I,
+  ];
+}
+
+
+// 3D vector dot product.
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+
+// 3D vector cross product.
+function cross(a, b) {
+  return [
+    a[1] * b[2] - a[2] * b[1],
+    a[2] * b[0] - a[0] * b[2],
+    a[0] * b[1] - a[1] * b[0],
+  ];
+}
+
+// 3D vector normalization (in-place).
+function normalize(a) {
+  const hypot = Math.hypot(a[0], a[1], a[2]);
+
+  a[0] /= hypot;
+  a[1] /= hypot;
+  a[2] /= hypot;
+
+  return a;
+}
+
+// Generate a 3D projection matrix for a camera located at `eye`, oriented
+// towards `target`, with `up` oriented towards the positive Y axis in the
+// view plane. (cf. OpenGL's gluLookAt().)
+function look_at(eye, target, up) {
+  const z = normalize([target[0] - eye[0], target[1] - eye[1], target[2] - eye[2]]);
+  const x = normalize(cross(z, up));
+
+  // NB: X and Z are already normalized, so their cross product will be, too.
+  const y = cross(z, x);
+
+  return [x, y, z];
+}
+
+// Project a 3D point into the view space defined by a projection matrix.
+// NB: `Z` controls the field of view.
+const Z = Math.sqrt(3);
+function project(a, m) {
+  return [dot(a, m[0]), dot(a, m[1]), dot(a, m[2]) + Z];
+}
+
+
+const [rise_ctx, set_ctx] = Array.from(
+  document.getElementsByTagName("canvas"),
+  canvas => canvas.getContext("2d"),
+);
+const date = document.getElementById("date");
+
+function clear(ctx, style) {
+  ctx.fillStyle = style;
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
+function circle(ctx, x, y, r, style) {
+  ctx.fillStyle = style;
+  ctx.beginPath();
+  ctx.arc(
+    ctx.canvas.width / 2 + x * ctx.canvas.height,
+    ctx.canvas.height - y * ctx.canvas.height,
+    r * ctx.canvas.height,
+    0,
+    Math.PI * 2,
+  );
+  ctx.fill();
+}
+
+// https://en.wikipedia.org/wiki/Epoch_(astronomy)#Julian_years_and_J2000
+const J2000 = Date.parse("2000-01-01T11:58:55.816");
+let start_ms;
+
+function draw(time_ms) {
+  // Compute Keplerian orbital elements (1800-2050 AD).
+  // https://ssd.jpl.nasa.gov/planets/approx_pos.html
+  // NB: All constants in degrees have been converted to radians.
+  const T = ((time_ms - start_ms) / 600000) % 2.5 - 2;
+  const sun = [0, 0, 0];
+  const mercury = kepler(
+    0.38709927   + T *    0.00000037,
+    0.20563593   + T *    0.00001906,
+    0.1222599479 - T *    0.0001038033,
+    4.4025986843 + T * 2608.7903050105,
+    1.3518935764 + T *    0.0028008501,
+    0.8435309955 - T *    0.0021876098,
+  );
+  const venus = kepler(
+    0.72333566   + T *    0.00000390,
+    0.00677672   - T *    0.00004107,
+    0.0592482741 - T *    0.0000137689,
+    3.1761344561 + T * 1021.3285495824,
+    2.2968963560 + T *    0.0000468322,
+    1.3383157224 - T *    0.0048466778,
+  );
+  const earth = kepler(
+    1.00000261   + T *    0.00000562,
+    0.01671123   - T *    0.00004392,
+    6.2831850400 - T *    0.0002259622,
+    1.7534375571 + T *  628.3075779009,
+    1.7966014740 + T *    0.0056421894,
+    0,
+  );
+  const mars = kepler(
+    1.52371034   + T *    0.00001847,
+    0.09339410   + T *    0.00007882,
+    0.0322832054 - T *    0.0001419181,
+    6.2037129256 + T *  334.0613016814,
+    5.8652901360 + T *    0.0077564331,
+    0.8649771297 - T *    0.0051063697,
+  );
+  const jupiter = kepler(
+    5.20288700   - T *    0.00011607,
+    0.04838624   - T *    0.00013253,
+    0.0227660215 - T *    0.0000320641,
+    0.6003311379 + T *   52.9663118914,
+    0.2570604668 + T *    0.0037092903,
+    1.7536005260 + T *    0.0035725329,
+  );
+  const saturn = kepler(
+    9.53667594   - T *    0.00125060,
+    0.05386179   - T *    0.00050991,
+    0.0433887433 + T *    0.0000337911,
+    0.8718660372 + T *   21.3365387887,
+    1.6161553102 - T *    0.0073124437,
+    1.9837835430 - T *    0.0050383805,
+  );
+
+  // Generate the view from the earth towards the sun, project the five planets
+  // into the view, and draw them from furthest to nearest (so that the nearer
+  // ones are drawn over top of the further ones).
+  const matrix = look_at(earth, sun, [0, 0, 1]);
+  const points = [
+    [...project(mercury, matrix), 1/ 80, "#9af"],
+    [...project(venus  , matrix), 1/ 32, "#fe9"],
+    [...project(mars   , matrix), 1/ 72, "#d42"],
+    [...project(jupiter, matrix), 1/ 72, "#fe9"],
+    [...project(saturn , matrix), 1/104, "#9af"],
+  ].
+    sort(([, , a], [, , b]) => b - a);
+
+  clear(rise_ctx, "#336");
+  clear(set_ctx, "#336");
+  for(const [x, y, z, r, style] of points) {
+    // NB: If the planet is behind the camera, we're done.
+    if(z <= Z - 1) { break; }
+
+    circle(rise_ctx, -y / z, x / z, r, style);
+    circle(set_ctx, y / z, -x / z, r, style);
+  }
+
+  date.innerHTML = new Date(T * 3155760000000 + J2000).
+    toISOString().
+    replace(/T.*$/g, "");
+
+  requestAnimationFrame(draw);
+}
+
+function init(time_ms) {
+  start_ms = time_ms;
+  draw(time_ms);
+}
+
+requestAnimationFrame(init);
+</script>

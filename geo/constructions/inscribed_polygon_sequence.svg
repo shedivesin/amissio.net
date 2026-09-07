@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-181 -62 593.246118 2044">
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="60" stroke="crimson" stroke-width="4"/>
+
+    <circle cx="-30" cy="240" r="60"/>
+    <circle cx="30" cy="240" r="60"/>
+    <path d="M0 188.038476A60 60 0 0 0 0 291.961524 60 60 0 0 0 0 188.038476Z" stroke="crimson" stroke-width="4"/>
+
+    <circle cy="480" r="60"/>
+    <circle cx="60" cy="480" r="60"/>
+    <circle cx="30" cy="531.961524" r="103.923048"/>
+    <path d="M-60 480 30 428.038476V531.961524Z" stroke="crimson" stroke-width="4"/>
+
+    <circle cy="720" r="60"/>
+    <circle cx="60" cy="720" r="60"/>
+    <circle cx="30" cy="771.961524" r="103.923048"/>
+    <circle cx="-60" cy="720" r="120"/>
+    <circle cx="120" cy="720" r="120"/>
+    <circle cx="60" cy="720" r="84.852814"/>
+    <path d="M-60 720 0 660 60 720 0 780Z" stroke="crimson" stroke-width="4"/>
+
+    <circle cy="960" r="60"/>
+    <circle cx="60" cy="960" r="60"/>
+    <circle cx="30" cy="1011.961524" r="103.923048"/>
+    <circle cx="60" cy="960" r="120"/>
+    <circle cx="120" cy="1063.923048" r="120"/>
+    <circle cy="1063.923048" r="60"/>
+    <circle cx="180" cy="960" r="171.246118"/>
+    <circle cx="180" cy="960" r="231.246118"/>
+    <path d="M-48.54102 995.267115V924.732885L18.54102 902.936609 60 960 18.54102 1017.063391Z" stroke="crimson" stroke-width="4"/>
+
+    <circle cy="1200" r="60"/>
+    <circle cx="60" cy="1200" r="60"/>
+    <circle cx="30" cy="1251.961524" r="103.923048"/>
+    <circle cx="-60" cy="1200" r="60"/>
+    <path d="M-60 1200-30 1148.038476H30L60 1200 30 1251.961524H-30Z" stroke="crimson" stroke-width="4"/>
+
+    <path d="M-54.058132 1413.966976V1466.033024L-13.351256 1498.495675 37.409388 1486.909889 60 1440 37.409388 1393.090111-13.351256 1381.504325Z" stroke="royalblue" stroke-width="4"/>
+
+    <circle cy="1680" r="60"/>
+    <circle cx="60" cy="1680" r="60"/>
+    <circle cx="30" cy="1731.961524" r="103.923048"/>
+    <circle cx="-60" cy="1680" r="120"/>
+    <circle cx="120" cy="1680" r="120"/>
+    <circle cx="60" cy="1680" r="84.852814"/>
+    <circle cx="-60" cy="1680" r="103.923048"/>
+    <circle cy="1680" r="84.852814"/>
+    <circle cy="1764.852814" r="60"/>
+    <circle cy="1595.147186" r="60"/>
+    <path d="M-60 1680-42.426407 1637.573593 0 1620 42.426407 1637.573593 60 1680 42.426407 1722.426407 0 1740-42.426407 1722.426407Z" stroke="crimson" stroke-width="4"/>
+
+    <path d="M-56.381557 1899.478791V1940.521209L-30 1971.961524 10.418891 1979.088465 45.962667 1958.567257 60 1920 45.962667 1881.432743 10.418891 1860.911535-30 1868.038476Z" stroke="royalblue" stroke-width="4"/>
+  </g>
+</svg>

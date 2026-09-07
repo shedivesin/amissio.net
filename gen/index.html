@@ -1,0 +1,136 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>Amissio: Geomantic Chart Generator</title>
+<style>body{margin:4em}td{vertical-align:top}</style>
+<h1>Geomantic Chart Generator</h1>
+
+<table>
+<tr>
+<td><label for=style>Style:</label>
+<td><select id=style>
+<option value=house>Amissio House</option>
+<option value=shield>Amissio Shield</option>
+<option value=tradhouse>Traditional House</option>
+<option value=tradshield>Traditional Shield</option>
+<option value=cgd>Celtic Golden Dawn</option>
+</select>
+
+<tr>
+<td><label for=m1>First&nbsp;Mother:</label>
+<td><select id=m1>
+<option>Populus<option>Laetitia<option>Rubeus<option>Fortuna Minor
+<option>Albus<option>Amissio<option>Conjunctio<option>Cauda Draconis
+<option>Tristitia<option>Carcer<option>Acquisitio<option>Puer
+<option>Fortuna Major<option>Puella<option>Caput Draconis<option>Via
+</select>
+
+<tr>
+<td><label for=m2>Second&nbsp;Mother:</label>
+<td><select id=m2>
+<option>Populus<option>Laetitia<option>Rubeus<option>Fortuna Minor
+<option>Albus<option>Amissio<option>Conjunctio<option>Cauda Draconis
+<option>Tristitia<option>Carcer<option>Acquisitio<option>Puer
+<option>Fortuna Major<option>Puella<option>Caput Draconis<option>Via
+</select>
+
+<tr>
+<td><label for=m3>Third&nbsp;Mother:</label>
+<td><select id=m3>
+<option>Populus<option>Laetitia<option>Rubeus<option>Fortuna Minor
+<option>Albus<option>Amissio<option>Conjunctio<option>Cauda Draconis
+<option>Tristitia<option>Carcer<option>Acquisitio<option>Puer
+<option>Fortuna Major<option>Puella<option>Caput Draconis<option>Via
+</select>
+
+<tr>
+<td><label for=m4>Fourth&nbsp;Mother:</label>
+<td><select id=m4>
+<option>Populus<option>Laetitia<option>Rubeus<option>Fortuna Minor
+<option>Albus<option>Amissio<option>Conjunctio<option>Cauda Draconis
+<option>Tristitia<option>Carcer<option>Acquisitio<option>Puer
+<option>Fortuna Major<option>Puella<option>Caput Draconis<option>Via
+</select>
+
+<tr>
+<td>Preview:
+<td><img id=preview width=248 height=248 src=house/00/00.svg>
+
+<tr>
+<td>Image&nbsp;URL:
+<td><textarea id=copypaste cols=40 rows=1 readOnly>https://amissio.net/gen/house/00/00.svg</textarea>
+</table>
+
+<br>
+<p class=footer>Version 11 (12 Apr 2026).<br>
+All content on <a href=/>amissio.net</a> is dedicated into <a
+href=https://creativecommons.org/publicdomain/zero/1.0/>the public domain</a>.
+<script>
+"use strict";
+const FIGURES = [
+  "Populus", "Laetitia", "Rubeus", "Fortuna Minor",
+  "Albus", "Amissio", "Conjunctio", "Cauda Draconis",
+  "Tristitia", "Carcer", "Acquisitio", "Puer",
+  "Fortuna Major", "Puella", "Caput Draconis", "Via",
+
+  "Pobl", "Llawenydd", "Coch", "Bendith Fach",
+  "Gwyn", "Colled", "Cyswllt", "Llosgwrn Y Ddraig",
+  "Tristwch", "Carchar", "Elw", "Mab",
+  "Bendith Fawr", "Merch", "Pen Y Ddraig", "Ffordd",
+];
+let STYLE = "house";
+
+function reload() {
+  // build the image path
+  const m1 = document.getElementById("m1").selectedIndex.toString(16);
+  const m2 = document.getElementById("m2").selectedIndex.toString(16);
+  const m3 = document.getElementById("m3").selectedIndex.toString(16);
+  const m4 = document.getElementById("m4").selectedIndex.toString(16);
+  const path = `${STYLE}/${m1}${m2}/${m3}${m4}.svg`;
+
+  // rewrite the preview
+  document.getElementById("preview").src = path;
+
+  // rewrite the Dreamwidth URL
+  const copypaste = document.getElementById("copypaste");
+  copypaste.value = "https://amissio.net/gen/" + path;
+  copypaste.select();
+}
+
+function reloadStyle() {
+  const was_cgd = STYLE === "cgd";
+
+  STYLE = document.getElementById("style").value;
+  const is_cgd = STYLE === "cgd";
+
+  switch(STYLE) {
+    case "house": case "tradhouse":
+      preview.width = preview.height = 248;
+      break;
+    case "shield": case "tradshield": case "cgd":
+      preview.width = 328;
+      preview.height = 200;
+      break;
+  }
+
+  // if the style was changed to or from CGD, then we need to rename to/from
+  // Latin (default) or Welsh (CGD) figure names
+  if(was_cgd !== is_cgd) {
+    const m1 = document.getElementById("m1").getElementsByTagName("option");
+    const m2 = document.getElementById("m2").getElementsByTagName("option");
+    const m3 = document.getElementById("m3").getElementsByTagName("option");
+    const m4 = document.getElementById("m4").getElementsByTagName("option");
+    const name_offset = is_cgd * 16;
+    for(let i = 0; i < 16; i++) {
+      m1[i].innerText = m2[i].innerText = m3[i].innerText = m4[i].innerText = FIGURES[name_offset + i];
+    }
+  }
+
+  reload();
+}
+
+document.getElementById("style").addEventListener("input", reloadStyle);
+document.getElementById("m1").addEventListener("input", reload);
+document.getElementById("m2").addEventListener("input", reload);
+document.getElementById("m3").addEventListener("input", reload);
+document.getElementById("m4").addEventListener("input", reload);
+</script>

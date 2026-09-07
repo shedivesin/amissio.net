@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60.5 -231.746118 472.246118 463.492236">
+  <g fill="crimson">
+    <text x="-4" y="-4" text-anchor="end">A</text>
+    <text x="64" y="-4" text-anchor="start">B</text>
+    <text x="40" y="55" text-anchor="start">C</text>
+    <text x="94" y="66" text-anchor="start">D</text>
+    <text x="184" y="-4" text-anchor="start">E</text>
+    <text x="4" y="100" text-anchor="start">F</text>
+    <text x="50" y="134" text-anchor="end">G</text>
+    <text x="-50" y="66" text-anchor="end">H</text>
+    <text x="18" y="73" text-anchor="end">I</text>
+    <text x="19" y="-63" text-anchor="end">J</text>
+    <text x="-43" y="31" text-anchor="start">K</text>
+    <text x="-43" y="-20" text-anchor="start">L</text>
+  </g>
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="60"/>
+    <circle cx="60" r="60"/>
+    <circle cx="30" cy="51.961524" r="60"/>
+    <circle cx="90" cy="51.961524" r="103.923048"/>
+    <circle cy="103.923048" r="60"/>
+    <circle cx="60" r="120"/>
+    <circle cx="180" r="171.246118"/>
+    <circle cx="180" r="231.246118"/>
+    <path d="M-48.54102 35.267115V-35.267115L18.54102-57.063391 60 0 18.54102 57.063391Z" stroke="crimson" stroke-width="3"/>
+  </g>
+  <circle r="3"/>
+  <circle cx="60" r="3"/>
+</svg>

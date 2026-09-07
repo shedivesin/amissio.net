@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-120.5 -120.5 301 277.884572">
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+    <circle r="60"/>
+    <circle cx="60" r="60"/>
+    <circle r="120"/>
+    <circle cx="60" r="120"/>
+    <g stroke-width="3">
+      <g stroke="royalblue">
+        <line x1="30" y1="-51.961524" x2="120" y2="103.923048"/>
+        <line x1="-60" y1="103.923048" x2="120" y2="103.923048"/>
+        <line x1="-60" y1="0" x2="120" y2="0"/>
+        <line x1="30" y1="-51.961524" x2="-60" y2="103.923048"/>
+      </g>
+      <g stroke="#0a2">
+        <line x1="-60" y1="0" x2="30" y2="116.1895"/>
+        <line x1="120" y1="0" x2="30" y2="116.1895"/>
+      </g>
+      <line x1="30" y1="-51.961524" x2="30" y2="116.1895" stroke="crimson"/>
+      <circle cx="30" cy="51.961524" r="103.923048"/>
+    </g>
+  </g>
+  <circle r="3"/>
+  <circle cx="60" r="3"/>
+</svg>

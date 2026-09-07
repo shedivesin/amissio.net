@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18.5 -18.5 37 37">
+  <g stroke="#000">
+    <circle r="18" fill="#fff"/>
+    <path d="M-17.39-4.66-5.8-1.55A6 6 0 0 1 5.8-1.55L17.39-4.66M-17.39 4.66-5.8 1.55A6 6 0 0 0 5.8 1.55L17.39 4.66" fill="none"/>
+  </g>
+  <g font-family="Palatino, Palatino Linotype, Book Antiqua, serif" font-size="3" font-weight="bold" text-anchor="middle" fill="crimson">
+    <text y="-11" dominant-baseline="central">Spiritual</text>
+    <text y="11" dominant-baseline="central">Material</text>
+  </g>
+</svg>

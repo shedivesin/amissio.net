@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 552 552">
+  <defs>
+    <path id="x" d="m0 6 6-6a17 17 0 0024 0l6 6-6 6a17 17 0 00-24 0"/>
+    <path id="y" d="m18 0 6 6-6 6-6-6" fill="crimson"/>
+    <g id="xx"><use href="#x"/><use href="#x" y="12"/></g>
+    <g id="yx"><use href="#y"/><use href="#x" y="12"/></g>
+    <g id="xy"><use href="#x"/><use href="#y" y="12"/></g>
+    <g id="yy"><use href="#y"/><use href="#y" y="12"/></g>
+    <g id="0"><use href="#xx"/><use href="#xx" y="24"/></g>
+    <g id="1"><use href="#yx"/><use href="#xx" y="24"/></g>
+    <g id="2"><use href="#xy"/><use href="#xx" y="24"/></g>
+    <g id="3"><use href="#yy"/><use href="#xx" y="24"/></g>
+    <g id="4"><use href="#xx"/><use href="#yx" y="24"/></g>
+    <g id="5"><use href="#yx"/><use href="#yx" y="24"/></g>
+    <g id="6"><use href="#xy"/><use href="#yx" y="24"/></g>
+    <g id="7"><use href="#yy"/><use href="#yx" y="24"/></g>
+    <g id="8"><use href="#xx"/><use href="#xy" y="24"/></g>
+    <g id="9"><use href="#yx"/><use href="#xy" y="24"/></g>
+    <g id="a"><use href="#xy"/><use href="#xy" y="24"/></g>
+    <g id="b"><use href="#yy"/><use href="#xy" y="24"/></g>
+    <g id="c"><use href="#xx"/><use href="#yy" y="24"/></g>
+    <g id="d"><use href="#yx"/><use href="#yy" y="24"/></g>
+    <g id="e"><use href="#xy"/><use href="#yy" y="24"/></g>
+    <g id="f"><use href="#yy"/><use href="#yy" y="24"/></g>
+  </defs>
+
+  <path d="M0 0H552V552H0"/>
+  <path d="M6 6H546V546H6ZM276 6 546 276 276 546 6 276ZM141 141H411V411H141ZM6 6 141 141M411 141 546 6M6 546 141 411M411 411 546 546" fill="#fff" stroke="#000" stroke-width="2"/>
+  <use href="#4" x="45" y="252"/>
+  <use href="#6" x="93" y="252"/>
+  <use href="#e" x="42" y="387"/>
+  <use href="#0" x="99" y="477"/>
+  <use href="#f" x="147" y="477"/>
+  <use href="#d" x="369" y="477"/>
+  <use href="#5" x="417" y="477"/>
+  <use href="#b" x="450" y="387"/>
+  <use href="#2" x="498" y="387"/>
+  <use href="#7" x="474" y="117"/>
+  <use href="#c" x="369" y="27"/>
+  <use href="#3" x="417" y="27"/>
+  <use href="#a" x="99" y="27"/>
+  <use href="#1" x="147" y="27"/>
+  <use href="#8" x="18" y="117"/>
+  <use href="#9" x="66" y="117"/>
+  <text x="276" y="276" text-anchor="middle" dominant-baseline="central" font-family="Palatino, Palatino Linotype, Book Antiqua, serif" font-size="23" font-weight="bold" fill="crimson">The Joys of the Figures</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18.5 -18.5 37 37">
+  <g stroke="#000">
+    <circle r="18" fill="#fff"/>
+    <path d="M-4.66-17.39-1.55-5.8A6 6 0 0 0-1.55 5.8L-4.66 17.39M4.66-17.39 1.55-5.8A6 6 0 0 1 1.55 5.8L4.66 17.39" fill="none"/>
+  </g>
+  <g font-family="Palatino, Palatino Linotype, Book Antiqua, serif" font-size="3" font-weight="bold" text-anchor="middle" fill="crimson">
+    <text x="-12" dominant-baseline="central">Near</text>
+    <text x="12" dominant-baseline="central">Far</text>
+  </g>
+</svg>

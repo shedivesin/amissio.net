@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 337.30205 465.758001">
+  <circle cx="138.651025" cy="284.840525" r="60" fill="none" stroke="#ccc"/>
+  <circle cx="198.651025" cy="284.840525" r="60" fill="none" stroke="#ccc"/>
+  <circle cx="168.651025" cy="336.802049" r="103.923048" fill="none" stroke="#ccc"/>
+  <circle cx="138.651025" cy="284.840525" r="3" fill="#ccc"/>
+  <circle cx="138.651025" cy="284.840525" r="120" fill="none" stroke="#ccc"/>
+  <circle cx="198.651025" cy="284.840525" r="3" fill="#ccc"/>
+  <circle cx="198.651025" cy="284.840525" r="120" fill="none" stroke="#ccc"/>
+  <circle cx="168.651025" cy="168.651025" r="168.151025" fill="none" stroke="#ccc"/>
+  <circle cx="168.651025" cy="401.030025" r="64.227976" fill="none" stroke="#ccc"/>
+  <circle cx="168.651025" cy="232.879001" r="3"/>
+  <circle cx="267.487717" cy="304.688061" r="3"/>
+  <circle cx="229.735460" cy="420.877562" r="3"/>
+  <circle cx="107.566590" cy="420.877562" r="3"/>
+  <circle cx="69.814333" cy="304.688061" r="3"/>
+  <path d="M168.651025 232.879001 267.487717 304.688061 229.735460 420.877562H107.566590L69.814333 304.688061Z" fill="none" stroke="#000"/>
+</svg>
